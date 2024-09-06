@@ -9,6 +9,7 @@
  */
 
 function roman2decimal(string $number): int {
+    $error_message = 'Badly formed Roman numeral';
 
     // Invalid symbols are removed from the string
     $number = str_split($number);
@@ -24,7 +25,7 @@ function roman2decimal(string $number): int {
     if (substr_count($number, 'V') > 1 || 
         substr_count($number, 'L') > 1 || 
         substr_count($number, 'D') > 1) {
-            throw new Exception('Badly formed Roman numeral');
+            throw new Exception($error_message);
     }
 
     // No digit can be repeated more than 3 times in a row
@@ -32,19 +33,19 @@ function roman2decimal(string $number): int {
         str_contains($number, 'CCCC') ||
         str_contains($number, 'XXXX') ||
         str_contains($number, 'IIII')) {
-            throw new Exception('Badly formed Roman numeral');
+            throw new Exception($error_message);
     }
 
     // D cannot precede M
     if (str_contains($number, 'DM')) {
-        throw new Exception('Badly formed Roman numeral');
+        throw new Exception($error_message);
     }
 
     // L cannot precede M, D or C
     if (str_contains($number, 'LM') ||
         str_contains($number, 'LD') ||
         str_contains($number, 'LC')) {
-            throw new Exception('Badly formed Roman numeral');
+            throw new Exception($error_message);
     }
 
     // V cannot precede M, D, C, L or X
@@ -53,12 +54,12 @@ function roman2decimal(string $number): int {
         str_contains($number, 'VC') ||
         str_contains($number, 'VL') ||
         str_contains($number, 'VX')) {
-            throw new Exception('Badly formed Roman numeral');
+            throw new Exception($error_message);
     }
 
     // X cannot precede D
     if (str_contains($number, 'XD')) {
-            throw new Exception('Badly formed Roman numeral');
+            throw new Exception($error_message);
     }
 
     // I cannot precede M, D, C, L
@@ -66,7 +67,7 @@ function roman2decimal(string $number): int {
         str_contains($number, 'ID') ||
         str_contains($number, 'IC') ||
         str_contains($number, 'IL')) {
-            throw new Exception('Badly formed Roman numeral');
+            throw new Exception($error_message);
     }
 
     // Each letter of the Roman numeral is translated into its decimal value
